@@ -3,15 +3,15 @@ const dotenv = require('dotenv')
 dotenv.config()
 const pool = require('./db')
 const notesRouter = require('./routes/notes')
+const path = require('path')
 
-
-console.log(process.env.DATABASE_URL)
 const app = express()
 
 app.use(express.json())
+app.use(express.static('public'))
 
 app.get('/', (req, res) => {
-    res.send('Notes API is running')
+    res.sendFile(path.join(__dirname, 'public', 'index.html'))
 })
 
 const PORT = process.env.PORT || 3000
